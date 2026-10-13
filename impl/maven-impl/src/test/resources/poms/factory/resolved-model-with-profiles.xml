@@ -20,6 +20,9 @@
     <artifactId>resolved-model-with-profiles</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
+    <properties>
+        <pom.declared.prop>hello</pom.declared.prop>
+    </properties>
     <profiles>
         <profile>
             <id>file-condition</id>
@@ -44,12 +47,32 @@
             </properties>
         </profile>
         <profile>
+            <id>pom-declared-property-condition</id>
+            <activation>
+                <property>
+                    <name>pom.declared.prop</name>
+                </property>
+            </activation>
+            <properties>
+                <profile.pom.property>activated</profile.pom.property>
+            </properties>
+        </profile>
+        <profile>
             <id>condition-condition</id>
             <activation>
                 <condition>${some.condition.property} == 'true'</condition>
             </activation>
             <properties>
                 <profile.condition>activated</profile.condition>
+            </properties>
+        </profile>
+        <profile>
+            <id>pom-declared-condition</id>
+            <activation>
+                <condition>${pom.declared.prop} == 'hello'</condition>
+            </activation>
+            <properties>
+                <profile.pom.condition>activated</profile.pom.condition>
             </properties>
         </profile>
         <!-- missing()-condition profile: must NOT fire in CONSUMER_DEPENDENCY builds -->
